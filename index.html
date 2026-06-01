@@ -3,10 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Museu dos Dinossauros - Experiência 3D</title>
+    
+    <style>
+        /* CSS INTERNO PARA CARREGAMENTO INICIAL */
+        body { margin: 0; overflow: hidden; background: #000; font-family: 'Segoe UI', sans-serif; }
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0d0d0d; display: flex; justify-content: center; align-items: center;
+            z-index: 9999; flex-direction: column; transition: opacity 0.5s;
+        }
+        .spinner {
+            width: 50px; height: 50px; border: 5px solid #333; border-top: 5px solid #ffc107;
+            border-radius: 50%; animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        #loader p { color: #ffc107; margin-top: 20px; letter-spacing: 2px; }
+    </style>
+
     <link rel="stylesheet" href="style.css">
-    <title>Projeto Agrinho </title>
+    
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
 </head>
 <body>
-   <script src=""></script>
+    <!-- TELA DE CARREGAMENTO -->
+    <div id="loader">
+        <div class="spinner"></div>
+        <p>CARREGANDO JURASSIC WORLD...</p>
+    </div>
+
+    <!-- INTERFACE PRINCIPAL -->
+    <div id="ui-wrapper">
+        <!-- HEADER -->
+        <header>
+            <div class="logo">🦕 <span>MUSEU JURÁSSICO</span></div>
+            <div class="header-controls">
+                <button id="btn-light" class="icon-btn" title="Alternar Dia/Noite">☀️</button>
+                <button id="btn-sound" class="icon-btn" title="Som">🔊</button>
+            </div>
+        </header>
+
+        <!-- MENU LATERAL ESCOLHA DINOSSUROS -->
+        <nav id="dino-selector">
+            <h3>ESPÉCIES</h3>
+            <div class="dino-list">
+                <button class="dino-btn" data-dino="trex">
+                    <span class="icon">🦖</span>
+                    <span class="name">Tirano-Sauro</span>
+                </button>
+                <button class="dino-btn" data-dino="trike">
+                    <span class="icon">🦕</span>
+                    <span class="name">Triceratops</span>
+                </button>
+                <button class="dino-btn" data-dino="stego">
+                    <span class="icon">🦎</span>
+                    <span class="name">Estegossauro</span>
+                </button>
+                <button class="dino-btn" data-dino="ptero">
+                    <span class="icon">🦅</span>
+                    <span class="name">Pterodáctilo</span>
+                </button>
+                <button class="dino-btn" data-dino="raptor">
+                    <span class="icon">🦗</span>
+                    <span class="name">Velociraptor</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- PAINEL DE INFORMAÇÕES -->
+        <aside id="info-panel">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="info">ℹ️ Dados</button>
+                <button class="tab-btn" data-tab="stats">📊 Stats</button>
+            </div>
+            
+            <div class="tab-content" id="tab-info">
+                <h2 id="dino-name">Tirano-Sauro Rex</h2>
+                <p class="period" id="dino-period">Período: Cretáceo</p>
+                <p class="description" id="dino-desc">
+                    O maior predador terrestre que já existiu. Podia alcançar 12 metros de comprimento e pesar até 9 toneladas.
+                </p>
+                <div class="fossil-img" id="fossil-box">
+                    <!-- Simulação de imagem fóssil -->
+                    <div class="fossil-silhueta"></div>
+                </div>
+            </div>
+
+            <div class="tab-content hidden" id="tab-stats">
+                <div class="stat-row">
+                    <label>Ameaça</label>
+                    <div class="stat-bar"><div class="fill" style="width: 95%"></div></div>
+                </div>
+                <div class="stat-row">
+                    <label>Velocidade</label>
+                    <div class="stat-bar"><div class="fill" style="width: 60%"></div></div>
+                </div>
+                <div class="stat-row">
+                    <label>Defesa</label>
+                    <div class="stat-bar"><div class="fill" style="width: 40%"></div></div>
+                </div>
+                <div class="stat-row">
+                    <label>Inteligência</label>
+                    <div class="stat-bar"><div class="fill" style="width: 70%"></div></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- RODAPÉ DE CONTROLES -->
+        <footer id="controls-bar">
+            <div class="control-group">
+                <label>Zoom</label>
+                <input type="range" id="zoom-slider" min="3" max="15" step="0.1" value="8">
+            </div>
+            <div class="control-group">
+                <label>Rotação Auto</label>
+                <label class="switch">
+                    <input type="checkbox" id="auto-rotate" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="control-group">
+                <label>Animação</label>
+                <select id="anim-select">
+                    <option value="idle">Parado</option>
+                    <option value="walk">Andando</option>
+                    <option value="attack">Atacando</option>
+                    <option value="roar">Rugindo</option>
+                </select>
+            </div>
+        </footer>
+
+        <!-- TOOLTIP -->
+        <div id="tooltip"></div>
+    </div>
+
+    <!-- CANVAS 3D -->
+    <script type="module" src="main.js"></script>
 </body>
 </html>
