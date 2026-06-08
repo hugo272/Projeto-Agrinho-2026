@@ -3,148 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Museu dos Dinossauros - Experiência 3D</title>
-    
-    <style>
-        /* CSS INTERNO PARA CARREGAMENTO INICIAL */
-        body { margin: 0; overflow: hidden; background: #000; font-family: 'Segoe UI', sans-serif; }
-        #loader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #0d0d0d; display: flex; justify-content: center; align-items: center;
-            z-index: 9999; flex-direction: column; transition: opacity 0.5s;
-        }
-        .spinner {
-            width: 50px; height: 50px; border: 5px solid #333; border-top: 5px solid #ffc107;
-            border-radius: 50%; animation: spin 1s linear infinite;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        #loader p { color: #ffc107; margin-top: 20px; letter-spacing: 2px; }
-    </style>
-
+    <title>Fazenda Tech | Sistema Inteligente</title>
     <link rel="stylesheet" href="style.css">
-    
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-            }
-        }
-    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Ícones (FontAwesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- TELA DE CARREGAMENTO -->
-    <div id="loader">
-        <div class="spinner"></div>
-        <p>CARREGANDO JURASSIC WORLD...</p>
-    </div>
 
-    <!-- INTERFACE PRINCIPAL -->
-    <div id="ui-wrapper">
-        <!-- HEADER -->
-        <header>
-            <div class="logo">🦕 <span>MUSEU JURÁSSICO</span></div>
-            <div class="header-controls">
-                <button id="btn-light" class="icon-btn" title="Alternar Dia/Noite">☀️</button>
-                <button id="btn-sound" class="icon-btn" title="Som">🔊</button>
-            </div>
-        </header>
+    <!-- Fundo Canvas para Partículas -->
+    <canvas id="particle-canvas"></canvas>
 
-        <!-- MENU LATERAL ESCOLHA DINOSSUROS -->
-        <nav id="dino-selector">
-            <h3>ESPÉCIES</h3>
-            <div class="dino-list">
-                <button class="dino-btn" data-dino="trex">
-                    <span class="icon">🦖</span>
-                    <span class="name">Tirano-Sauro</span>
-                </button>
-                <button class="dino-btn" data-dino="trike">
-                    <span class="icon">🦕</span>
-                    <span class="name">Triceratops</span>
-                </button>
-                <button class="dino-btn" data-dino="stego">
-                    <span class="icon">🦎</span>
-                    <span class="name">Estegossauro</span>
-                </button>
-                <button class="dino-btn" data-dino="ptero">
-                    <span class="icon">🦅</span>
-                    <span class="name">Pterodáctilo</span>
-                </button>
-                <button class="dino-btn" data-dino="raptor">
-                    <span class="icon">🦗</span>
-                    <span class="name">Velociraptor</span>
-                </button>
-            </div>
-        </nav>
+    <!-- Navegação -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-leaf"></i> AGRO<span class="highlight">NEXUS</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#dashboard">Dados em Tempo Real</a></li>
+            <li><a href="#servicos">Serviços</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
 
-        <!-- PAINEL DE INFORMAÇÕES -->
-        <aside id="info-panel">
-            <div class="tabs">
-                <button class="tab-btn active" data-tab="info">ℹ️ Dados</button>
-                <button class="tab-btn" data-tab="stats">📊 Stats</button>
-            </div>
-            
-            <div class="tab-content" id="tab-info">
-                <h2 id="dino-name">Tirano-Sauro Rex</h2>
-                <p class="period" id="dino-period">Período: Cretáceo</p>
-                <p class="description" id="dino-desc">
-                    O maior predador terrestre que já existiu. Podia alcançar 12 metros de comprimento e pesar até 9 toneladas.
-                </p>
-                <div class="fossil-img" id="fossil-box">
-                    <!-- Simulação de imagem fóssil -->
-                    <div class="fossil-silhueta"></div>
+    <!-- Seção Hero -->
+    <header id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>O Futuro do <span class="text-blue"> Agronegócio</span></h1>
+            <p>Gerenciamento inteligente de safras e gado com análise de dados avançada.</p>
+            <a href="#dashboard" class="btn-neon">Acessar Dashboard</a>
+        </div>
+    </header>
+
+    <!-- Dashboard Interativa (Complexidade) -->
+    <section id="dashboard" class="dashboard-section">
+        <div class="section-title">
+            <h2>Monitoramento em Tempo Real</h2>
+            <div class="line"></div>
+        </div>
+        
+        <div class="grid-monitor">
+            <!-- Card 1 -->
+            <div class="monitor-card">
+                <div class="card-header">
+                    <i class="fas fa-temperature-low"></i> Clima / Solo
+                </div>
+                <div class="card-body">
+                    <h3 id="temp-val">24°C</h3>
+                    <p>Umidade: <span id="hum-val">65%</span></p>
+                    <div class="status-bar"><div class="fill" style="width: 65%"></div></div>
                 </div>
             </div>
 
-            <div class="tab-content hidden" id="tab-stats">
-                <div class="stat-row">
-                    <label>Ameaça</label>
-                    <div class="stat-bar"><div class="fill" style="width: 95%"></div></div>
+            <!-- Card 2 -->
+            <div class="monitor-card">
+                <div class="card-header">
+                    <i class="fas fa-cow"></i> Rebanho (IA)
                 </div>
-                <div class="stat-row">
-                    <label>Velocidade</label>
-                    <div class="stat-bar"><div class="fill" style="width: 60%"></div></div>
-                </div>
-                <div class="stat-row">
-                    <label>Defesa</label>
-                    <div class="stat-bar"><div class="fill" style="width: 40%"></div></div>
-                </div>
-                <div class="stat-row">
-                    <label>Inteligência</label>
-                    <div class="stat-bar"><div class="fill" style="width: 70%"></div></div>
+                <div class="card-body">
+                    <h3 id="cattle-val">1,240</h3>
+                    <p>Status: <span class="text-green">Saudável</span></p>
+                    <div class="status-bar"><div class="fill green" style="width: 90%"></div></div>
                 </div>
             </div>
-        </aside>
 
-        <!-- RODAPÉ DE CONTROLES -->
-        <footer id="controls-bar">
-            <div class="control-group">
-                <label>Zoom</label>
-                <input type="range" id="zoom-slider" min="3" max="15" step="0.1" value="8">
+            <!-- Card 3 -->
+            <div class="monitor-card">
+                <div class="card-header">
+                    <i class="fas fa-seedling"></i> Safra de Soja
+                </div>
+                <div class="card-body">
+                    <h3 id="crop-val">98%</h3>
+                    <p>Crescimento projetado</p>
+                    <div class="status-bar"><div class="fill blue" style="width: 98%"></div></div>
+                </div>
             </div>
-            <div class="control-group">
-                <label>Rotação Auto</label>
-                <label class="switch">
-                    <input type="checkbox" id="auto-rotate" checked>
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <div class="control-group">
-                <label>Animação</label>
-                <select id="anim-select">
-                    <option value="idle">Parado</option>
-                    <option value="walk">Andando</option>
-                    <option value="attack">Atacando</option>
-                    <option value="roar">Rugindo</option>
-                </select>
-            </div>
-        </footer>
+        </div>
+    </section>
 
-        <!-- TOOLTIP -->
-        <div id="tooltip"></div>
-    </div>
+    <!-- Seção Serviços -->
+    <section id="servicos" class="services">
+        <div class="container">
+            <h2>Operações</h2>
+            <div class="service-grid">
+                <div class="service-box">
+                    <i class="fas fa-tractor"></i>
+                    <h3>Mecanização</h3>
+                    <p>Controle de máquinas autônomas via GPS.</p>
+                </div>
+                <div class="service-box">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Analytics</h3>
+                    <p>Previsão de colheita baseada em Big Data.</p>
+                </div>
+                <div class="service-box">
+                    <i class="fas fa-dna"></i>
+                    <h3>Genética</h3>
+                    <p>Melhoramento genético do gado Nelore.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- CANVAS 3D -->
-    <script type="module" src="main.js"></script>
+    <!-- Rodapé -->
+    <footer id="contato">
+        <div class="footer-content">
+            <h3>AgroNexus</h3>
+            <p>Conectando o campo à tecnologia.</p>
+            <ul class="socials">
+                <li><i class="fab fa-instagram"></i></li>
+                <li><i class="fab fa-whatsapp"></i></li>
+                <li><i class="fab fa-linkedin"></i></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 AgroNexus Tech. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
 </body>
 </html>
