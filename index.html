@@ -1,130 +1,121 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fazenda Tech | Sistema Inteligente</title>
+    <title>AgroTech - Painel Rural</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <!-- Ícones (FontAwesome) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- Fundo Canvas para Partículas -->
-    <canvas id="particle-canvas"></canvas>
-
-    <!-- Navegação -->
     <nav class="navbar">
-        <div class="logo">
-            <i class="fas fa-leaf"></i> AGRO<span class="highlight">NEXUS</span>
+        <div class="nav-logo">
+            <i class="fa-solid fa-tractor"></i> <span>Agro<b>Tech</b></span>
         </div>
         <ul class="nav-links">
-            <li><a href="#inicio">Início</a></li>
-            <li><a href="#dashboard">Dados em Tempo Real</a></li>
-            <li><a href="#servicos">Serviços</a></li>
-            <li><a href="#contato">Contato</a></li>
+            <li><a href="#dashboard" class="active"><i class="fa-solid fa-chart-pie"></i> Painel</a></li>
+            <li><a href="#silos"><i class="fa-solid fa-warehouse"></i> Silos</a></li>
+            <li><a href="#maquinas"><i class="fa-solid fa-truck-field"></i> Maquinário</a></li>
+            <li><a href="#clima"><i class="fa-solid fa-cloud-sun-rain"></i> Clima</a></li>
         </ul>
-        <div class="menu-toggle">
-            <i class="fas fa-bars"></i>
+        <div class="nav-status">
+            <span class="status-dot"></span> Conectado ao Campo
         </div>
     </nav>
 
-    <!-- Seção Hero -->
-    <header id="inicio" class="hero">
-        <div class="hero-content">
-            <h1>O Futuro do <span class="text-blue"> Agronegócio</span></h1>
-            <p>Gerenciamento inteligente de safras e gado com análise de dados avançada.</p>
-            <a href="#dashboard" class="btn-neon">Acessar Dashboard</a>
-        </div>
-    </header>
-
-    <!-- Dashboard Interativa (Complexidade) -->
-    <section id="dashboard" class="dashboard-section">
-        <div class="section-title">
-            <h2>Monitoramento em Tempo Real</h2>
-            <div class="line"></div>
-        </div>
+    <main class="main-container">
         
-        <div class="grid-monitor">
-            <!-- Card 1 -->
-            <div class="monitor-card">
-                <div class="card-header">
-                    <i class="fas fa-temperature-low"></i> Clima / Solo
+        <section id="dashboard" class="section-card">
+            <h2><i class="fa-solid fa-gauge"></i> Monitoramento em Tempo Real</h2>
+            <p>Gerencie os dados vitais da sua propriedade rural com precisão.</p>
+            
+            <div class="grid-cards">
+                <div class="card metric-card" onclick="interagirCard('Umidade do Solo')">
+                    <i class="fa-solid fa-droplet icon-blue"></i>
+                    <h3>Umidade do Solo</h3>
+                    <p class="metric-value" id="txt-umidade">42%</p>
+                    <span class="status-ok">Ideal</span>
                 </div>
-                <div class="card-body">
-                    <h3 id="temp-val">24°C</h3>
-                    <p>Umidade: <span id="hum-val">65%</span></p>
-                    <div class="status-bar"><div class="fill" style="width: 65%"></div></div>
+                <div class="card metric-card" onclick="interagirCard('Temperatura')">
+                    <i class="fa-solid fa-temperature-high icon-blue"></i>
+                    <h3>Temperatura do Ar</h3>
+                    <p class="metric-value" id="txt-temp">28.5°C</p>
+                    <span class="status-alert">Atenção</span>
                 </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="monitor-card">
-                <div class="card-header">
-                    <i class="fas fa-cow"></i> Rebanho (IA)
-                </div>
-                <div class="card-body">
-                    <h3 id="cattle-val">1,240</h3>
-                    <p>Status: <span class="text-green">Saudável</span></p>
-                    <div class="status-bar"><div class="fill green" style="width: 90%"></div></div>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="monitor-card">
-                <div class="card-header">
-                    <i class="fas fa-seedling"></i> Safra de Soja
-                </div>
-                <div class="card-body">
-                    <h3 id="crop-val">98%</h3>
-                    <p>Crescimento projetado</p>
-                    <div class="status-bar"><div class="fill blue" style="width: 98%"></div></div>
+                <div class="card metric-card" onclick="interagirCard('Nível de Fertilizante')">
+                    <i class="fa-solid fa-seedling icon-blue"></i>
+                    <h3>Nutrientes NPK</h3>
+                    <p class="metric-value">Echele 88%</p>
+                    <span class="status-ok">Otimizado</span>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Seção Serviços -->
-    <section id="servicos" class="services">
-        <div class="container">
-            <h2>Operações</h2>
-            <div class="service-grid">
-                <div class="service-box">
-                    <i class="fas fa-tractor"></i>
-                    <h3>Mecanização</h3>
-                    <p>Controle de máquinas autônomas via GPS.</p>
+        <section id="silos" class="section-card">
+            <h2><i class="fa-solid fa-warehouse"></i> Controle de Armazenamento (Silos)</h2>
+            <div class="silo-container">
+                <div class="silo-wrapper">
+                    <h3>Silo A1 (Soja)</h3>
+                    <div class="silo-visual">
+                        <div class="silo-fill" id="silo-soja" style="height: 75%;">
+                            <span class="silo-percent">75%</span>
+                        </div>
+                    </div>
+                    <button class="btn-action" onclick="alterarSilo('soja', 10)">Abastecer Carga</button>
+                    <button class="btn-action btn-danger" onclick="alterarSilo('soja', -10)">Descarregar</button>
                 </div>
-                <div class="service-box">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Analytics</h3>
-                    <p>Previsão de colheita baseada em Big Data.</p>
-                </div>
-                <div class="service-box">
-                    <i class="fas fa-dna"></i>
-                    <h3>Genética</h3>
-                    <p>Melhoramento genético do gado Nelore.</p>
+
+                <div class="silo-wrapper">
+                    <h3>Silo A2 (Milho)</h3>
+                    <div class="silo-visual">
+                        <div class="silo-fill fill-cyan" id="silo-milho" style="height: 40%;">
+                            <span class="silo-percent">40%</span>
+                        </div>
+                    </div>
+                    <button class="btn-action" onclick="alterarSilo('milho', 10)">Abastecer Carga</button>
+                    <button class="btn-action btn-danger" onclick="alterarSilo('milho', -10)">Descarregar</button>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Rodapé -->
-    <footer id="contato">
-        <div class="footer-content">
-            <h3>AgroNexus</h3>
-            <p>Conectando o campo à tecnologia.</p>
-            <ul class="socials">
-                <li><i class="fab fa-instagram"></i></li>
-                <li><i class="fab fa-whatsapp"></i></li>
-                <li><i class="fab fa-linkedin"></i></li>
-            </ul>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2023 AgroNexus Tech. Todos os direitos reservados.</p>
-        </div>
+        <section id="maquinas" class="section-card">
+            <h2><i class="fa-solid fa-truck-field"></i> Status da Frota de Tratores e Colheitadeiras</h2>
+            <div class="table-responsive">
+                <table class="agro-table">
+                    <thead>
+                        <tr>
+                            <th>Equipamento</th>
+                            <th>Status</th>
+                            <th>Combustível</th>
+                            <th>Telemetria GPS</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Colheitadeira John D. #01</td>
+                            <td><span class="badge badge-active">Operando</span></td>
+                            <td>82%</td>
+                            <td>Sul - Talhão 4</td>
+                            <td><button class="btn-table" onclick="alert('Chamando operador da Colheitadeira #01')">Contatar</button></td>
+                        </tr>
+                        <tr>
+                            <td>Trator Case IH #04</td>
+                            <td><span class="badge badge-standby">Em Espera</span></td>
+                            <td>45%</td>
+                            <td>Oficina Central</td>
+                            <td><button class="btn-table" onclick="alert('Trator #04 ativado via telemetria.')">Ligar Remoto</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 AgroTech Systems. Conectando a tecnologia ao campo com segurança e inovação.</p>
     </footer>
 
     <script src="main.js"></script>

@@ -1,260 +1,217 @@
-/* Variáveis de Cor */
+/* Configurações Gerais e Variáveis de Cores (Preto e Azul) */
 :root {
-    --bg-dark: #050505;
-    --bg-card: #111111;
-    --primary-blue: #00f2ff;
-    --secondary-blue: #007bff;
-    --text-white: #ffffff;
-    --text-gray: #b3b3b3;
-    --glass: rgba(255, 255, 255, 0.05);
-    --border-color: rgba(0, 242, 255, 0.3);
+    --bg-dark: #0a0c10;
+    --bg-card: #121620;
+    --blue-primary: #0052cc;
+    --blue-neon: #00d2ff;
+    --blue-dark: #1a2333;
+    --text-white: #f0f4f8;
+    --text-gray: #8a99ad;
+    --alert-green: #00ff88;
+    --alert-orange: #ff9900;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
     background-color: var(--bg-dark);
     color: var(--text-white);
-    overflow-x: hidden;
+    line-height: 1.6;
 }
 
-/* Fundo Canvas */
-#particle-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    background: radial-gradient(circle at center, #0a0a0a 0%, #000000 100%);
-}
-
-/* Tipografia */
-h1, h2, h3 {
-    font-family: 'Orbitron', sans-serif;
-}
-
-.text-blue {
-    color: var(--primary-blue);
-    text-shadow: 0 0 10px var(--primary-blue);
-}
-
-/* Navbar */
+/* Barra de Navegação */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 50px;
-    position: fixed;
-    width: 100%;
-    background: rgba(5, 5, 5, 0.8);
-    backdrop-filter: blur(10px);
+    background-color: var(--bg-card);
+    padding: 1rem 2rem;
+    border-bottom: 2px solid var(--blue-primary);
+    position: sticky;
+    top: 0;
     z-index: 1000;
-    border-bottom: 1px solid var(--border-color);
 }
 
-.logo {
+.nav-logo {
     font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--text-white);
-}
-
-.highlight {
-    color: var(--primary-blue);
+    color: var(--blue-neon);
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 30px;
+    gap: 20px;
 }
 
 .nav-links a {
+    color: var(--text-gray);
     text-decoration: none;
-    color: var(--text-white);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--blue-neon);
+    background-color: var(--blue-dark);
+}
+
+.nav-status {
     font-size: 0.9rem;
-    transition: 0.3s;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    color: var(--alert-green);
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.nav-links a:hover {
-    color: var(--primary-blue);
-    text-shadow: 0 0 8px var(--primary-blue);
+.status-dot {
+    width: 10px;
+    height: 10px;
+    background-color: var(--alert-green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--alert-green);
 }
 
-.menu-toggle {
-    display: none;
-    font-size: 1.5rem;
+/* Container Principal */
+.main-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+/* Estilização dos Blocos (Cards Grandes) */
+.section-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--blue-dark);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.section-card h2 {
+    color: var(--blue-neon);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.section-card > p {
+    color: var(--text-gray);
+    margin-bottom: 1.5rem;
+}
+
+/* Mini Cards de Métricas */
+.grid-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background-color: var(--bg-dark);
+    border: 1px solid rgba(0, 210, 255, 0.2);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
     cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
 }
 
-/* Hero Section */
-.hero {
-    height: 100vh;
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--blue-neon);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+}
+
+.icon-blue {
+    font-size: 2rem;
+    color: var(--blue-neon);
+    margin-bottom: 10px;
+}
+
+.metric-value {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin: 10px 0;
+    color: var(--text-white);
+}
+
+.status-ok { color: var(--alert-green); font-size: 0.85rem; }
+.status-alert { color: var(--alert-orange); font-size: 0.85rem; }
+
+/* Mecânica Visual dos Silos de Grãos */
+.silo-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.silo-wrapper {
+    text-align: center;
+    flex: 1;
+    min-width: 200px;
+}
+
+.silo-visual {
+    width: 120px;
+    height: 200px;
+    background-color: var(--bg-dark);
+    border: 3px solid var(--blue-primary);
+    border-radius: 10px 10px 40px 40px; /* Base afunilada de silo rural */
+    margin: 1.5rem auto;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+}
+
+.silo-fill {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(180deg, var(--blue-neon), var(--blue-primary));
+    transition: height 0.5s ease-in-out;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    padding-top: 80px;
-    position: relative;
 }
 
-.hero h1 {
-    font-size: 4rem;
-    margin-bottom: 20px;
-    animation: fadeIn 2s ease;
+.fill-cyan {
+    background: linear-gradient(180deg, #0077ff, #002266);
 }
 
-.hero p {
-    font-size: 1.2rem;
-    color: var(--text-gray);
-    margin-bottom: 40px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.btn-neon {
-    padding: 15px 40px;
-    background: transparent;
-    border: 2px solid var(--primary-blue);
-    color: var(--primary-blue);
-    text-decoration: none;
+.silo-percent {
     font-weight: bold;
-    text-transform: uppercase;
-    transition: 0.3s;
-    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
 }
 
-.btn-neon:hover {
-    background: var(--primary-blue);
-    color: #000;
-    box-shadow: 0 0 20px var(--primary-blue);
+/* Botões Modernos */
+.btn-action {
+    background-color: var(--blue-primary);
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    margin: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.2s;
 }
 
-/* Dashboard Section */
-.dashboard-section {
-    padding: 100px 50px;
-    background: rgba(0, 0, 0, 0.5);
-}
-
-.section-title {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.line {
-    width: 60px;
-    height: 4px;
-    background: var(--primary-blue);
-    margin: 10px auto;
-    box-shadow: 0 0 10px var(--primary-blue);
-}
-
-.grid-monitor {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.monitor-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    padding: 20px;
-    border-radius: 5px;
-    backdrop-filter: blur(5px);
-    transition: 0.3s;
-}
-
-.monitor-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 242, 255, 0.2);
-}
-
-.card-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--primary-blue);
-    margin-bottom: 15px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 10px;
-}
-
-.card-body h3 {
-    font-size: 2.5rem;
-    margin-bottom: 5px;
-}
-
-.status-bar {
-    width: 100%;
-    height: 6px;
-    background: #333;
-    margin-top: 15px;
-    border-radius: 3px;
-}
-
-.fill {
-    height: 100%;
-    background: var(--secondary-blue);
-    border-radius: 3px;
-    box-shadow: 0 0 10px var(--secondary-blue);
-    transition: width 1s ease;
-}
-
-.fill.green {
-    background: #00ff88;
-    box-shadow: 0 0 10px #00ff88;
-}
-
-/* Serviços */
-.services {
-    padding: 100px 50px;
-}
-
-.service-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 40px;
-    max-width: 1200px;
-    margin: 50px auto 0;
-}
-
-.service-box {
-    text-align: center;
-    padding: 40px;
-    background: var(--glass);
-    border: 1px solid rgba(255,255,255,0.1);
-    transition: 0.3s;
-}
-
-.service-box i {
-    font-size: 3rem;
-    color: var(--text-gray);
-    margin-bottom: 20px;
-}
-
-.service-box:hover i {
-    color: var(--primary-blue);
-    text-shadow: 0 0 20px var(--primary-blue);
-}
-
-/* Footer */
-footer {
-    background: #000;
-    padding: 50px 20px 20px;
-    text-align: center;
-    border-top: 1px solid var(--border-color);
-}
-
-.socials {
-    list-style: none;
-        display: flex }
+.btn-action:hover { background-color: var(--blue-neon); color: var(--bg-dark); }
+.btn-danger { background-color: #331111; border: 1px solid }
